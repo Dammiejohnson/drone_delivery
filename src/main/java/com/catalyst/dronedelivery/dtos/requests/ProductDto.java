@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @Builder
 public class ProductDto {
-    private Long id;
     private String name;
     private double productWeight;
     private double productAmount;

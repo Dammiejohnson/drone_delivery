@@ -26,11 +26,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "total_weight", nullable = false)
-    private double totalWeightOfProduct;
 
-    @Column(name = "total_amount", nullable = false)
-    private double totalAmountOfProduct;
 
 //    @OneToMany(mappedBy = "order",
 //            orphanRemoval = true,
