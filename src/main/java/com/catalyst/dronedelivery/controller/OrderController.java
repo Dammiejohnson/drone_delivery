@@ -17,10 +17,9 @@ public class OrderController {
 
     @PostMapping("/purchaseOrder/{userId}")
     public ResponseEntity<?> addPurchase(@PathVariable Long userId,
-                                         @RequestParam Long cartId,
-                                         @RequestBody Order order){
+                                         @RequestParam Long cartId){
 
-        PurchaseOrderResponse response = orderService.purchaseOrder(userId, cartId, order);
+        PurchaseOrderResponse response = orderService.purchaseOrder(userId, cartId);
         return  new ResponseEntity<>(response, HttpStatus.OK);
 
 

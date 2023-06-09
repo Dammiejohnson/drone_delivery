@@ -25,7 +25,7 @@ public class Drone {
     @Column(name = "drone_name", nullable = false)
     private String name;
 
-    @Column(name = "weight_limit", nullable = false)
+    @Column(name = "weight_limit_in_grammes", nullable = false)
     private double weightLimit;
 
     @Column(name = "drone_fee", nullable = false)

@@ -32,12 +32,4 @@ public class CartItem {
     @Column(name = "quantity", nullable = true)
     private int quantity;
 
-
-    public double calculateTotalWeight() {
-        return product.getProductWeight() * getQuantity();
-    }
-
-    public double calculateTotalAmount() {
-        return product.getProductAmount() * getQuantity();
-    }
 }

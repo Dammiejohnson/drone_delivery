@@ -26,18 +26,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
-//    @OneToMany(mappedBy = "order",
-//            orphanRemoval = true,
-//            fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL)
-//    @Column(name = "product", nullable = false)
-//    private List<Product> orderedProducts = new ArrayList<>();
-
-
-   // private long cartId; //the user will get the full; cart as a response but only the cartid will be in the database
-
     @Column(name = "order_time", nullable = false)
     @CreationTimestamp
     private LocalDateTime creationTime;

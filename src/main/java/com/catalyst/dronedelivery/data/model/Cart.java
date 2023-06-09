@@ -29,7 +29,7 @@ public class Cart {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<CartItem> cartItems = new ArrayList<>();
 
-    @Column(name = "total_weight", nullable = true)
+    @Column(name = "total_weight_in_grammes", nullable = true)
     private double totalWeightOfProduct;
 
     @Column(name = "total_amount", nullable = true)

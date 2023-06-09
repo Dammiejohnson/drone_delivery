@@ -25,13 +25,10 @@ public class Product {
     @Column(name = "product_name", nullable = false)
     private String name;
 
-    @Column(name = "product_weight", nullable = false)
+    @Column(name = "product_weight_in_grammes", nullable = false)
     private double productWeight;
 
     @Column(name = "product_amount", nullable = false)
     private double productAmount;
 
-//    @ManyToOne
-//    @JoinColumn(name = "order_id")
-//    private Order order;
 }

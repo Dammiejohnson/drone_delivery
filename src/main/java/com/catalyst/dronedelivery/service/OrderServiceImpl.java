@@ -8,6 +8,7 @@ import com.catalyst.dronedelivery.data.repository.CartRepo;
 import com.catalyst.dronedelivery.data.repository.DroneRepo;
 import com.catalyst.dronedelivery.data.repository.OrderRepo;
 import com.catalyst.dronedelivery.data.repository.UserRepo;
+import com.catalyst.dronedelivery.dtos.requests.DroneDto;
 import com.catalyst.dronedelivery.dtos.requests.UserDto;
 import com.catalyst.dronedelivery.dtos.responses.PurchaseOrderResponse;
 import com.catalyst.dronedelivery.exception.DroneAppException;
@@ -30,7 +31,7 @@ public class OrderServiceImpl implements OrderService{
     private final ModelMapper mapper = new ModelMapper();
 
     @Override
-    public PurchaseOrderResponse purchaseOrder(Long userId, Long cartId, Order order) {
+    public PurchaseOrderResponse purchaseOrder(Long userId, Long cartId) {
         User existingUser = userRepo.findById(userId).orElseThrow(() -> new DroneAppException("User not Found"));
         Cart existingCart = cartRepo.findById(cartId).orElseThrow(() -> new DroneAppException("Cart not Found"));
             Order newOrder = Order.builder()
@@ -38,7 +39,10 @@ public class OrderServiceImpl implements OrderService{
                     .cart(existingCart)
                     .creationTime(LocalDateTime.now())
                     .build();
-        getDrone(existingCart, newOrder);
+
+        Drone drone = getDrone(existingCart, newOrder);
+        DroneDto droneDto = new DroneDto();
+        mapper.map(drone, droneDto);
 
         UserDto userDTO = new UserDto();
         mapper.map(existingUser, userDTO);
@@ -48,12 +52,13 @@ public class OrderServiceImpl implements OrderService{
                 .user(userDTO)
                 .cart(existingCart)
                 .order(newOrder)
+                .drone(droneDto)
                 .build();
 
         return response;
     }
 
-    private void getDrone(Cart existingCart, Order newOrder) {
+    private Drone getDrone(Cart existingCart, Order newOrder) {
         if(existingCart.getTotalWeightOfProduct() <= 10000){
             newOrder.setDrone(droneRepo.findById(1L).get());}
             else if(existingCart.getTotalWeightOfProduct() <= 20000){
@@ -62,9 +67,12 @@ public class OrderServiceImpl implements OrderService{
             newOrder.setDrone(droneRepo.findById(3L).get());}
             else if(existingCart.getTotalWeightOfProduct() <= 40000){
             newOrder.setDrone(droneRepo.findById(5L).get());}
-            else{
-                newOrder.setDrone(droneRepo.findById(6L).get());
+            else if(existingCart.getTotalWeightOfProduct() <= 50000){
+            newOrder.setDrone(droneRepo.findById(6L).get());}
+            else {
+           throw  new DroneAppException("Drone for this weight is not available!!");
         }
+            return newOrder.getDrone();
     }
 
 }
